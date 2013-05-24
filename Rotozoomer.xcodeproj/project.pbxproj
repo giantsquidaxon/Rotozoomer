@@ -22,6 +22,7 @@
 		3C05FD331744FE54005610D7 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3C05FD321744FE54005610D7 /* Shader.fsh */; };
 		3C05FD351744FE54005610D7 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3C05FD341744FE54005610D7 /* Shader.vsh */; };
 		3C05FD381744FE54005610D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C05FD371744FE54005610D7 /* ViewController.m */; };
+		3C782E17174859F900D41911 /* texture1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3C782E16174859F900D41911 /* texture1.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		3C05FD341744FE54005610D7 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		3C05FD361744FE54005610D7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		3C05FD371744FE54005610D7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3C782E16174859F900D41911 /* texture1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = texture1.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				3C05FD341744FE54005610D7 /* Shader.vsh */,
 				3C05FD361744FE54005610D7 /* ViewController.h */,
 				3C05FD371744FE54005610D7 /* ViewController.m */,
+				3C782E16174859F900D41911 /* texture1.jpg */,
 				3C05FD1E1744FE54005610D7 /* Supporting Files */,
 			);
 			path = Rotozoomer;
@@ -179,6 +182,7 @@
 				3C05FD311744FE54005610D7 /* MainStoryboard.storyboard in Resources */,
 				3C05FD331744FE54005610D7 /* Shader.fsh in Resources */,
 				3C05FD351744FE54005610D7 /* Shader.vsh in Resources */,
+				3C782E17174859F900D41911 /* texture1.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +249,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -270,7 +274,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -316,6 +320,7 @@
 				3C05FD3D1744FE54005610D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
