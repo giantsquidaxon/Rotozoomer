@@ -41,7 +41,6 @@ GLint vertexCount;
     GLuint _program;
     
     GLKMatrix4 _modelViewProjectionMatrix;
-    GLKMatrix3 _normalMatrix;
     float _rotation;
     float _zoom;
     float _offset;
@@ -107,6 +106,8 @@ GLint vertexCount;
 
     vertexCount = 6*5;
     
+    
+    //set up GL
     [self setupGL];
     
 }
@@ -381,6 +382,7 @@ GLint vertexCount;
 
 - (GLuint)setupTexture:(NSString *)fileName {
     
+    //load file in to CGImage
     CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
     if (!spriteImage) {
         NSLog(@"Failed to load image %@", fileName);
@@ -390,18 +392,33 @@ GLint vertexCount;
     size_t width = CGImageGetWidth(spriteImage);
     size_t height = CGImageGetHeight(spriteImage);
     
-    //
-    // check for powers of two here
-    //
+#if defined(DEBUG)
+    //assert that the image is square
+    if (!( width == height ))
+    {
+        NSLog(@"Texture file %@ is not square (%zd by %zd px).",fileName,width,height);
+        exit(1);
+    }
+    //assert that dimensions are powers of two
+    if (width & (width - 1))
+    {
+        NSLog(@"Texture file %@ does not have dimensions that are a power of 2 (%zd by %zd px).",fileName,width,height);
+        exit(1);
+    }
+#endif
     
+    //allocate memory for texture bytes and draw texture into them
     GLubyte * spriteData = (GLubyte *) calloc(width*height*4, sizeof(GLubyte));
     
+    //NOTE
+    //Do some colour depth checks and conversion here
     CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
     
     CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
     
     CGContextRelease(spriteContext);
     
+    //bind texture
     GLuint texName;
     glGenTextures(1, &texName);
     glBindTexture(GL_TEXTURE_2D, texName);
