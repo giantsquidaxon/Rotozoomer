@@ -11,4 +11,6 @@
 
 @interface ViewController : GLKViewController
 
+- (IBAction) textureA: (id)sender;
+- (IBAction) textureB: (id)sender;
 @end

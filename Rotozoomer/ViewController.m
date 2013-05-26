@@ -10,7 +10,6 @@
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define TEX_COORD_MAX   1.0f
-#define SQUARE_SIDE 0.99f
 
 // Uniform index.
 enum
@@ -206,7 +205,7 @@ GLint vertexCount;
     glBindTexture(GL_TEXTURE_2D, _texture);
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     glUniform1f(uniforms[UNIFORM_A], _rotation);
-    glUniform1f(uniforms[UNIFORM_Z], 0.6+cos(_zoom)/2);
+    glUniform1f(uniforms[UNIFORM_Z], 0.6+cos(_zoom)/4);
     glUniform1f(uniforms[UNIFORM_OFFSET], _offset);
 
     // Render the object  with ES2
@@ -434,7 +433,17 @@ GLint vertexCount;
 
 - (void)setupTextures
 {
-    _texture=[self setupTexture:@"texture1.jpg"];
+    _texture=[self setupTexture:@"12.jpg"];
+}
+
+# pragma mark - texture switch controls
+- (IBAction) textureA: (id)sender
+{
+    _texture=[self setupTexture:@"12.jpg"];
+}
+- (IBAction) textureB: (id)sender
+{
+    _texture=[self setupTexture:@"14.jpg"];
 }
 
 @end
