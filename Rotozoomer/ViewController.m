@@ -143,8 +143,7 @@ GLint vertexCount;
     [EAGLContext setCurrentContext:self.context];
     
     [self loadShaders];
-    [self setupTextures];
-    
+    _texture=[self setupTexture:@"12.jpg"];    
     
     glEnable(GL_DEPTH_TEST);
     
@@ -431,10 +430,7 @@ GLint vertexCount;
     
 }
 
-- (void)setupTextures
-{
-    _texture=[self setupTexture:@"12.jpg"];
-}
+
 
 # pragma mark - texture switch controls
 - (IBAction) textureA: (id)sender
