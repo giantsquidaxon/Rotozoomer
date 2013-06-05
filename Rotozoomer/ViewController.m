@@ -10,6 +10,7 @@
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define TEX_COORD_MAX   1.0f
+#define FPSSAMPLES 30
 
 // Uniform index.
 enum
@@ -33,8 +34,13 @@ enum
     NUM_ATTRIBUTES
 };
 
+//vertices for quads
 GLfloat * gVertexData;
 GLint vertexCount;
+
+//framerate window to give framerate stats
+float FPSsamples[FPSSAMPLES];
+int FPSsampleOffset = 0;
 
 @interface ViewController () {
     GLuint _program;
@@ -54,7 +60,6 @@ GLint vertexCount;
 
 - (void)setupGL;
 - (void)tearDownGL;
-
 - (BOOL)loadShaders;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
 - (BOOL)linkProgram:(GLuint)prog;
@@ -62,6 +67,8 @@ GLint vertexCount;
 @end
 
 @implementation ViewController
+
+@synthesize FPSreadout;
 
 - (void)viewDidLoad
 {
@@ -191,7 +198,35 @@ GLint vertexCount;
     _offset += self.timeSinceLastUpdate * 0.02f * _direction;
     _direction = _offset > 1 ? -1 : 1;
     _direction = _offset < -1 ? 1 : -1;
+
+    [self updateFPS];
+
 }
+
+- (void) updateFPS
+{
+    if (FPSsampleOffset == FPSSAMPLES)
+    {
+        float FPSmin = FPSsamples[0];
+        float FPStotal = 0;
+        for (int i = 0; i<FPSSAMPLES; i++)
+        {
+            FPSmin = FPSmin < FPSsamples[i] ? FPSmin : FPSsamples[i];
+            FPStotal += FPSsamples[i];
+        }
+        
+        [FPSreadout setText:[NSString stringWithFormat:@" fps min:%04.1f \t avg:%04.1f", FPSmin, FPStotal / FPSSAMPLES]];
+        
+        FPSsampleOffset = 0;
+    }
+    FPSsamples[FPSsampleOffset++] = 1.0 / self.timeSinceLastUpdate;
+}
+
+
+
+
+
+
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
@@ -272,7 +307,6 @@ GLint vertexCount;
     
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
-    //uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
     uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(_program,"tex");
     
     uniforms[UNIFORM_TEX_COORD] = glGetAttribLocation(_program, "TexCoordIn");
@@ -429,8 +463,6 @@ GLint vertexCount;
     return texName;
     
 }
-
-
 
 # pragma mark - texture switch controls
 - (IBAction) textureA: (id)sender

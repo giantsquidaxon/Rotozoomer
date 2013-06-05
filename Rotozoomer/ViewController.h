@@ -11,6 +11,14 @@
 
 @interface ViewController : GLKViewController
 
+{
+    UILabel *FPSreadout;
+}
+
 - (IBAction) textureA: (id)sender;
 - (IBAction) textureB: (id)sender;
+
+@property (strong, nonatomic) IBOutlet UILabel *FPSreadout;
+
+
 @end
